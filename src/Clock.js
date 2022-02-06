@@ -4,8 +4,10 @@ const Clock = (props) => {
 
     const [time, setTime] = useState(new Date());
     const [dst, setDst] = useState(false);
+    const [londonTime, setLondonTime] = useState(false);
 
-    let hours = (time.getHours() + (dst ? 1 : 0)) % 12;
+    let hour = londonTime ? time.getUTCHours() : time.getHours();
+    let hours = (hour + (dst ? 1 : 0)) % 12;
     
     let bigNums = [ [12, 375, 200], 
                     [3, 605, 420], 
@@ -43,6 +45,7 @@ const Clock = (props) => {
                 })}
             </svg>
             <button id={dst ? 'pushed' : ''}onClick={() => setDst(!dst)}>Daylight Savings?</button>
+            <button id={londonTime ? 'pushed' : ''} onClick={() => setLondonTime(!londonTime)}>GMT / UTC Time</button>
         </div>
     );
 }
